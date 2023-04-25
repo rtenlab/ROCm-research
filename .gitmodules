@@ -15,7 +15,7 @@
 	url = git@github.com:rtenlab/ROCR-Runtime.git
 [submodule "ROCT-Thunk-Interface"]
 	path = ROCT-Thunk-Interface
-	url = git@github.com:socal-ucr/ROCT-Thunk-Interface.git
+	url = git@github.com:rtenlab/ROCT-Thunk-Interface.git
 [submodule "rocm-cmake"]
 	path = rocm-cmake
 	url = git@github.com:RadeonOpenCompute/rocm-cmake.git

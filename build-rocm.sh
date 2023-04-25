@@ -21,7 +21,7 @@ cd llvm-project
 rm -rf build
 mkdir -p build && cd build
 ${CMAKE} -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/rocm/llvm -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_ASSERTIONS=1 -DLLVM_TARGETS_TO_BUILD="AMDGPU;X86" -DLLVM_ENABLE_PROJECTS="llvm;clang;lld;compiler-rt" -DLLVM_INSTALL_UTILS=1 -G "Unix Makefiles" ../llvm
-make -j
+make -j 2
 make install
 cd ${cwd}
 
@@ -36,7 +36,7 @@ cd ROCm-Device-Libs
 rm -rf build
 mkdir build && cd build
 CC=${CC_DIR} CXX=${CXX_DIR} ${CMAKE} -DCMAKE_PREFIX_PATH=${INSTALL_DIR}/rocm/llvm -DLLVM_DIR=${INSTALL_DIR}/rocm/llvm -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/rocm/rocdl ..
-make -j
+make -j 2
 make install
 cd ${cwd}
 
@@ -51,7 +51,7 @@ cd ROCR-Runtime/src
 rm -rf build
 mkdir build && cd build
 CC=${CC_DIR} CXX=${CXX_DIR} ${CMAKE} -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/rocm -DCMAKE_PREFIX_PATH="${INSTALL_DIR}/rocm/include;${INSTALL_DIR}/rocm/lib;${INSTALL_DIR}/rocm/rocdl" -DCMAKE_BUILD_TYPE="RELEASE" ..
-make -j 
+make -j 2
 make install
 cd ${cwd}
 
@@ -59,7 +59,7 @@ cd ROCm-CompilerSupport/lib/comgr
 rm -rf build
 mkdir build && cd build
 CC=${CC_DIR} CXX=${CXX_DIR} ${CMAKE} -DCMAKE_BUILD_TYPE=Release  -DCMAKE_PREFIX_PATH="${INSTALL_DIR}/rocm/llvm;${INSTALL_DIR}/rocm/rocdl" -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/rocm/comgr ..
-make -j
+make -j 2
 make install
 cd ${cwd}
 
@@ -67,7 +67,7 @@ cd rocminfo
 rm -rf build
 mkdir build && cd build
 CC=${CC_DIR} CXX=${CXX_DIR} ${CMAKE} -DCMAKE_PREFIX_PATH=${INSTALL_DIR}/rocm  -DCMAKE_INSTALL_BINDIR=${INSTALL_DIR}/rocm/bin -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/rocm ..
-make
+make -j 2
 make install
 cd ${cwd}
 
@@ -79,7 +79,7 @@ OPENCL_DIR="$(readlink -f ROCm-OpenCL-Runtime)"
 cd ${HIPAMD_DIR}
 rm -rf build; mkdir -p build; cd build
 CC=${CC_DIR} CXX=${CXX_DIR} ${CMAKE} -DHIP_COMMON_DIR=$HIP_DIR -DAMD_OPENCL_PATH=$OPENCL_DIR -DROCCLR_PATH=$ROCCLR_DIR -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/rocm/hip -DHIP_COMPILER=clang -DHIP_CLANG_PATH=${INSTALL_DIR}/rocm/llvm/bin -DCMAKE_BUILD_TYPE=Release -DHIP_PLATFORM=rocclr -DOPENCL_DIR=${INSTALL_DIR}/rocm/opencl -DCMAKE_PREFIX_PATH="${INSTALL_DIR}/rocm/llvm;${ROCclr_DIR}/build;${INSTALL_DIR}/rocm/lib/cmake/hsa-runtime64;${INSTALL_DIR}/rocm/comgr;${INSTALL_DIR}/rocm" -DHSA_PATH=${INSTALL_DIR}/rocm/hsa -DROCM_PATH=${INSTALL_DIR}/rocm -DDEVICE_LIB_PATH=${INSTALL_PATH}/rocm/rocdl -DCMAKE_HIP_ARCHITECTURES=gfx906 ..
-make -j 
+make -j 2
 make install
 cd ${cwd}
 
@@ -87,7 +87,7 @@ cd rocm_smi_lib
 sed -i "s|/opt/rocm|${INSTALL_DIR}/rocm|" CMakeLists.txt # install to local directory does not require sudo
 rm -rf build && mkdir build && cd build
 CC=${CC_DIR} CXX=${CXX_DIR} ${CMAKE} -DCMAKE_PREFIX_PATH=${INSTALL_DIR}/rocm  ..
-make
+make -j 2
 make install
 cd ${cwd}
 
